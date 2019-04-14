@@ -10,11 +10,9 @@ fstat，stat及lstat系统调用返回打开的文件或者文件描述符相关
 #include <unistd>
 #include <sys/stat.h>
 #include <sys/types.h>
-
-
-       int stat(const char *pathname, struct stat *buf);
-       int fstat(int fd, struct stat *buf);
-       int lstat(const char *pathname, struct stat *buf);
+int stat(const char *pathname, struct stat *buf);
+int fstat(int fd, struct stat *buf);
+int lstat(const char *pathname, struct stat *buf);
 
 ```
 
