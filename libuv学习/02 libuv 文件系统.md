@@ -15,6 +15,7 @@ libuv可通过uv_fs_\*系列函数和 uv_fs_t 结构体进行操作。所有文�
 ```c++
 	int uv_fs_open(uv_loop_t* loop, uv_fs_t* req, const char* path, int flags, int mode, uv_fs_cb cb)
 	int uv_fs_close(uv_loop_t* loop, uv_fs_t* req, uv_file file, uv_fs_cb cb)
+	void callback(uv_fs_t* req); //文件回调签名
 ```
 flags 和 mode与unix中文件操作的flag和mode一致，libuv内部负责将其转化成与windows兼容的windows flags
 
