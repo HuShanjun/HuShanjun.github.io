@@ -106,3 +106,135 @@ int main(int argc, char **argv) {
 }
 
 ```
+
+## filesystem 操作
+所有unix标准文件你操作例如：unlink，rmdir，stat都支持异步操作并且和read/write有着相同的调用模式，返回值都是通过uv_fs_t.result获取的。
+libuv提供的文件操作接口如下：
+```c++
+struct uv_dirent_s {
+  const char* name;
+  uv_dirent_type_t type;
+};
+
+UV_EXTERN char** uv_setup_args(int argc, char** argv);
+UV_EXTERN int uv_get_process_title(char* buffer, size_t size);
+UV_EXTERN int uv_set_process_title(const char* title);
+UV_EXTERN int uv_resident_set_memory(size_t* rss);
+UV_EXTERN int uv_uptime(double* uptime);
+UV_EXTERN uv_os_fd_t uv_get_osfhandle(int fd);
+UV_EXTERN int uv_open_osfhandle(uv_os_fd_t os_fd);
+
+typedef struct {
+  long tv_sec;
+  long tv_usec;
+} uv_timeval_t;
+
+typedef struct {
+  int64_t tv_sec;
+  int32_t tv_usec;
+} uv_timeval64_t;
+
+typedef struct {
+   uv_timeval_t ru_utime; /* user CPU time used */
+   uv_timeval_t ru_stime; /* system CPU time used */
+   uint64_t ru_maxrss;    /* maximum resident set size */
+   uint64_t ru_ixrss;     /* integral shared memory size */
+   uint64_t ru_idrss;     /* integral unshared data size */
+   uint64_t ru_isrss;     /* integral unshared stack size */
+   uint64_t ru_minflt;    /* page reclaims (soft page faults) */
+   uint64_t ru_majflt;    /* page faults (hard page faults) */
+   uint64_t ru_nswap;     /* swaps */
+   uint64_t ru_inblock;   /* block input operations */
+   uint64_t ru_oublock;   /* block output operations */
+   uint64_t ru_msgsnd;    /* IPC messages sent */
+   uint64_t ru_msgrcv;    /* IPC messages received */
+   uint64_t ru_nsignals;  /* signals received */
+   uint64_t ru_nvcsw;     /* voluntary context switches */
+   uint64_t ru_nivcsw;    /* involuntary context switches */
+} uv_rusage_t;
+
+UV_EXTERN int uv_getrusage(uv_rusage_t* rusage);
+
+UV_EXTERN int uv_os_homedir(char* buffer, size_t* size);
+UV_EXTERN int uv_os_tmpdir(char* buffer, size_t* size);
+UV_EXTERN int uv_os_get_passwd(uv_passwd_t* pwd);
+UV_EXTERN void uv_os_free_passwd(uv_passwd_t* pwd);
+UV_EXTERN uv_pid_t uv_os_getpid(void);
+UV_EXTERN uv_pid_t uv_os_getppid(void);
+
+#define UV_PRIORITY_LOW 19
+#define UV_PRIORITY_BELOW_NORMAL 10
+#define UV_PRIORITY_NORMAL 0
+#define UV_PRIORITY_ABOVE_NORMAL -7
+#define UV_PRIORITY_HIGH -14
+#define UV_PRIORITY_HIGHEST -20
+
+UV_EXTERN int uv_os_getpriority(uv_pid_t pid, int* priority);
+UV_EXTERN int uv_os_setpriority(uv_pid_t pid, int priority);
+
+UV_EXTERN int uv_cpu_info(uv_cpu_info_t** cpu_infos, int* count);
+UV_EXTERN void uv_free_cpu_info(uv_cpu_info_t* cpu_infos, int count);
+
+UV_EXTERN int uv_interface_addresses(uv_interface_address_t** addresses,
+                                     int* count);
+UV_EXTERN void uv_free_interface_addresses(uv_interface_address_t* addresses,
+                                           int count);
+
+UV_EXTERN int uv_os_getenv(const char* name, char* buffer, size_t* size);
+UV_EXTERN int uv_os_setenv(const char* name, const char* value);
+UV_EXTERN int uv_os_unsetenv(const char* name);
+
+#ifdef MAXHOSTNAMELEN
+# define UV_MAXHOSTNAMESIZE (MAXHOSTNAMELEN + 1)
+#else
+  /*
+    Fallback for the maximum hostname size, including the null terminator. The
+    Windows gethostname() documentation states that 256 bytes will always be
+    large enough to hold the null-terminated hostname.
+  */
+# define UV_MAXHOSTNAMESIZE 256
+#endif
+
+UV_EXTERN int uv_os_gethostname(char* buffer, size_t* size);
+
+UV_EXTERN int uv_os_uname(uv_utsname_t* buffer);
+
+typedef enum {
+  UV_FS_UNKNOWN = -1,
+  UV_FS_CUSTOM,
+  UV_FS_OPEN,
+  UV_FS_CLOSE,
+  UV_FS_READ,
+  UV_FS_WRITE,
+  UV_FS_SENDFILE,
+  UV_FS_STAT,
+  UV_FS_LSTAT,
+  UV_FS_FSTAT,
+  UV_FS_FTRUNCATE,
+  UV_FS_UTIME,
+  UV_FS_FUTIME,
+  UV_FS_ACCESS,
+  UV_FS_CHMOD,
+  UV_FS_FCHMOD,
+  UV_FS_FSYNC,
+  UV_FS_FDATASYNC,
+  UV_FS_UNLINK,
+  UV_FS_RMDIR,
+  UV_FS_MKDIR,
+  UV_FS_MKDTEMP,
+  UV_FS_RENAME,
+  UV_FS_SCANDIR,
+  UV_FS_LINK,
+  UV_FS_SYMLINK,
+  UV_FS_READLINK,
+  UV_FS_CHOWN,
+  UV_FS_FCHOWN,
+  UV_FS_REALPATH,
+  UV_FS_COPYFILE,
+  UV_FS_LCHOWN,
+  UV_FS_OPENDIR,
+  UV_FS_READDIR,
+  UV_FS_CLOSEDIR
+} uv_fs_type;
+```
+以上罗列了部分，更多课参考 uv.h（https://github.com/libuv/libuv/blob/v1.x/include/uv.h）  第1089行至1466行
