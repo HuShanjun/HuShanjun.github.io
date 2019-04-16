@@ -6,6 +6,6 @@ grammar_cjkRuby: true
 
 ---
 ##  概述
-libuv 致力于提供一种异步，基于事件通知的编程风格，其核心工作是提供事件循环和基于I/O和其他活动通知的回调。libuv提供的核心组件包括timer，非阻塞网络，非阻塞文件系统等。
+libuv 提供了一种基于事件的异步Reactor模型，其核心原理是运行一个永不停止的EventLoop来通知每个用户所关心的事件。libuv提供timer，network，file等核心功能。
 
 ## 
