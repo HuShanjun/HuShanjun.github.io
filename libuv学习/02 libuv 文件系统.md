@@ -28,6 +28,14 @@ int uv_fs_read(uv_loop_t* loop,
                unsigned int nbufs,
                int64_t offset,
                uv_fs_cb cb) 
+			   
+ int uv_fs_write(uv_loop_t* loop,
+                uv_fs_t* req,
+                uv_file fd,
+                const uv_buf_t bufs[],
+                unsigned int nbufs,
+                int64_t offset,
+                uv_fs_cb cb)
 ```
 
 示例demo
