@@ -39,7 +39,6 @@ int uv_fs_read(uv_loop_t* loop,
 ```
 在读文件之前，应该传递一个初始化过的buffer参数，他将在callback调用之前被填充，libuv将POSIX函数与uv_fs_\*函数建立映射，在文件操作中，如果触发EOF，uv_fs_t结构中result将会被置为0,若是操作stream或者pipe，UV_EOF将被用于传输操作的状态。
 
-
 示例demo
 ```c++
 #include <assert.h>
