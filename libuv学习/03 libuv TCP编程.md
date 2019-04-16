@@ -116,10 +116,11 @@ int main() {
     uv_tcp_t* socket = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
     uv_tcp_init(loop, &socket);
 	
+	uv_connect_t* connect = (uv_connect*)malloc(sizeof(uv_connect_t));
 	struct addr;
     uv_ip4_addr("127.0.0.1", 80, &addr);
 
-    uv_tcp_bind(&server, (const struct sockaddr*)&addr, 0);
+    uv_tcp_connect(, (const struct sockaddr*)&addr, 0);
     int r = uv_listen((uv_stream_t*) &server, DEFAULT_BACKLOG, on_new_connection);
     if (r) {
         fprintf(stderr, "Listen error %s\n", uv_strerror(r));
