@@ -120,7 +120,7 @@ int main() {
 	struct addr;
     uv_ip4_addr("127.0.0.1", 80, &addr);
 
-    uv_tcp_connect(, (const struct sockaddr*)&addr, 0);
+    uv_tcp_connect(connect,socket,(const struct sockaddr*)&addr,on_connect);
     int r = uv_listen((uv_stream_t*) &server, DEFAULT_BACKLOG, on_new_connection);
     if (r) {
         fprintf(stderr, "Listen error %s\n", uv_strerror(r));
