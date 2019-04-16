@@ -125,8 +125,7 @@ void on_connect(uv_connect_t* req, int status)
         free(req);
         return;
     }
-
-   // uv_read_start((uv_stream_t*) req->handle, d, on_read);
+	//you can do something
 }
 
 int main()
