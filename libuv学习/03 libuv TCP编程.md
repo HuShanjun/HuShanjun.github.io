@@ -110,23 +110,38 @@ int main() {
 client demo
 ```c++
 
-void on_connect(uv_connect_t* req, int status);
 
-int main() {
-    loop = uv_default_loop();
+#include <iostream>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <uv.h>
 
-    uv_tcp_t* socket = (uv_tcp_t*)malloc(sizeof(uv_tcp_t));
-    uv_tcp_init(loop, &socket);
-	
-	uv_connect_t* connect = (uv_connect*)malloc(sizeof(uv_connect_t));
-	struct addr;
-    uv_ip4_addr("127.0.0.1", 80, &addr);
+using namespace std;
 
-    uv_tcp_connect(connect,socket,(const struct sockaddr*)&addr,on_connect);
- 
-    return uv_run(loop, UV_RUN_DEFAULT);
+void on_connect(uv_connect_t* req, int status)
+{
+    if (status < 0) {
+        fprintf(stderr, "connect failed error %s\n", uv_err_name(status));
+        free(req);
+        return;
+    }
+
+   // uv_read_start((uv_stream_t*) req->handle, d, on_read);
 }
 
+int main()
+{
+    uv_loop_t* loop = uv_default_loop();
+    uv_connect_t* conn = new uv_connect_t;
+    uv_tcp_t* client = new uv_tcp_t;
+    uv_tcp_init(loop,client);
 
+    struct sockaddr_in addr; 
+    uv_ip4_addr("127.0.0.1",7000,&addr);
+
+    uv_tcp_connect(conn, client, (const struct sockaddr*)&addr, on_connect);
+
+    return 0;
+}
 
 ``
