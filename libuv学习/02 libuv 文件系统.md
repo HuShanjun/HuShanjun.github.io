@@ -1,6 +1,6 @@
 ---
 title: 02 libuv 文件系统
-tags: 新建,模板,小书匠
+tags: libuv
 grammar_cjkRuby: true
 ---
 
