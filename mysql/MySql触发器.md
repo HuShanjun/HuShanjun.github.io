@@ -45,5 +45,11 @@ DROP TRIGGER [schema_name.]trigger_name
 	select * from triggers where [condition]
 ```
 
+# 三. 触发器使用
+## 3.1 触发器使用限制
+1. 触发器程序不能调用将数据返回客户端的存储程序，也不能使用采用CALL语句的动态SQL语句。 但允许存储过程通过参数将数据返回触发程序，也就是允许通过存储过程或者函数通过OUT或者INOUT类型的参数将数据返回触发器是可以的，但是不能调用直接返回数据。
+2. 不可以在触发器中使用以显式或者隐式方式开始或结束事务的语句，如 START TRANSACTION, COMMIT或者ROLLBACK
+
+
 
 
