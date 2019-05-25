@@ -33,6 +33,17 @@ FOR_EACH_ROW trigger_stmt
 DROP TRIGGER [schema_name.]trigger_name
 ```
 
+## 2.4 查看触发器
+方法一
+```
+ show trigge \G;
+ ```
+方法二
+```
+	information_schema;
+	desc triggers; //查看triggers字段
+	select * from triggers where [condition]
+```
 
 
 
