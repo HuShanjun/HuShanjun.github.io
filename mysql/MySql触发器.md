@@ -29,6 +29,9 @@ FOR_EACH_ROW trigger_stmt
 
 
 ## 2.2 删除触发器
+```sql
+DROP TRIGGER [schema_name.]trigger_name
+```
 
 
 
