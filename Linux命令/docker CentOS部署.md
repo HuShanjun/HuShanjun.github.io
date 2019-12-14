@@ -43,15 +43,17 @@
 ## 参考文献
 
 - docker基础操作 https://blog.csdn.net/YJ108283/article/details/95166286
-
 - docker删除容器  https://blog.csdn.net/qq_26709459/article/details/80785761
 - docker nodejs服务部署 https://www.cnblogs.com/pass245939319/p/8473861.html
+  - https://www.jianshu.com/p/3f2f57690b3e
+- docker删除镜像 https://blog.csdn.net/flydreamzhll/article/details/80900509
+- docker 进入容器 https://www.cnblogs.com/xhyan/p/6593075.html
 
 
 
 # centos 常见服务器重启及配置文件
 
-## [centos7重启apache、nginx、mysql、php-fpm命令](https://www.cnblogs.com/zhang-ding-1314/p/8403819.html)
+## centos7重启apache、nginx、mysql、php-fpm命令
 
 apache
 启动
